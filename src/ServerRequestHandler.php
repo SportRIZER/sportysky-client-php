@@ -20,8 +20,8 @@ final class ServerRequestHandler
 
     public function handle(): array
     {
-        if ($isoCode = filter_input(INPUT_GET, 'departmentIsoCode', FILTER_SANITIZE_STRING)) {
-            return $this->apiClient->getDepartmentForecast($isoCode);
+        if ($mapView = filter_input(INPUT_GET, 'mapView', FILTER_SANITIZE_STRING)) {
+            return $this->apiClient->getForecast($mapView);
         }
 
         return [];

@@ -33,28 +33,13 @@ final class ApiClient
         ]);
     }
 
-    public function getDepartmentForecast(string $isoCode): array
-    {
-        return $this->getForecast($isoCode, 'spots.department.isoCode');
-    }
-
-    public function getRegionForecast(string $isoCode): array
-    {
-        return $this->getForecast($isoCode, 'spots.region.isoCode');
-    }
-
-    public function getCountryForecast(string $isoCode): array
-    {
-        return $this->getForecast($isoCode, 'spots.country.isoCode');
-    }
-
-    private function getForecast(string $isoCode, string $filter): array
+    public function getForecast(string $mapView): array
     {
         try {
             $reponse = $this->http->get('/forecast/customers/me/theme', [
                 'query' => [
                     'groups[]' => 'forecast',
-                    $filter => $isoCode
+                    'mapView' => $mapView
                 ]
             ]);
 
