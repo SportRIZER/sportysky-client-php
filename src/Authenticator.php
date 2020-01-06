@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sportrizer\Sportysky;
 
 use Desarrolla2\Cache\File;
@@ -58,11 +60,11 @@ final class Authenticator
         $this->clientSecret = $clientSecret;
 
         if (!$cache) {
-            $this->cache = new File();
+            $this->cache = new File(realpath(sys_get_temp_dir()));
         }
 
-        $this->apiAudience = getenv('SPORTRIZER_SPORTYSKY_API_AUDIENCE') ?? self::API_AUDIENCE;
-        $this->sportrizerAuthUrl = getenv('SPORTRIZER_AUTH_URL') ?? self::SPORTRIZER_AUTH_URL;
+        $this->apiAudience = getenv('SPORTRIZER_SPORTYSKY_API_AUDIENCE') ?: self::API_AUDIENCE;
+        $this->sportrizerAuthUrl = getenv('SPORTRIZER_AUTH_URL') ?: self::SPORTRIZER_AUTH_URL;
         $this->authApi = new Client(['base_uri' => $this->sportrizerAuthUrl]);
     }
 
