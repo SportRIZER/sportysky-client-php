@@ -2,55 +2,47 @@
 
 namespace Sportrizer\Sportysky;
 
-use Desarrolla2\Cache\File;
-use Psr\SimpleCache\CacheInterface;
+use GuzzleHttp\Client;
 
 final class ApiClient
 {
-    private const API_AUDIENCE = 'https://api.sportysky.com';
-    private const SPORTRIZER_AUTH_URL = 'https://auth.sportrizer.com/oauth/token';
+    private const SPORTYSKY_API_URL = 'https://api.sportysky.com';
 
     /**
-     * Client ID provided by SportRIZER
+     * JWT token provided by Authenticator
      *
      * @var string
      */
-    private $clientId;
+    private $token;
 
     /**
-     * Client secret provided by SportRIZER
+     * Sportysky Guzzle client
      *
-     * @var string
+     * @var Client
      */
-    private $clientSecret;
+    private $http;
 
-    /**
-     * PSR 16 cache implementation
-     *
-     * @var CacheInterface
-     */
-    private $cache;
-
-    /**
-     * @var string
-     */
-    private $apiAudience;
-
-    /**
-     * @var string
-     */
-    private $sportrizerAuthUrl;
-
-    public function __construct(string $clientId, string $clientSecret, ?CacheInterface $cache = null)
+    public function __construct(string $token)
     {
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
+        $this->token = $token;
+        $this->http = new Client([
+            'base_uri' => getenv('SPORTYSKY_API_URL') ?? self::SPORTYSKY_API_URL,
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Accept' => 'application/json'
+            ]
+        ]);
+    }
 
-        if (!$cache) {
-            $this->cache = new File();
-        }
+    public function getDepartmentForecast(string $isoCode): array
+    {
+        $reponse = $this->http->get('/forecast/customers/me/theme', [
+            'query' => [
+                'groups' => ['forecast'],
+                'spots.department.isoCode' => $isoCode
+            ]
+        ]);
 
-        $this->apiAudience = getenv('SPORTRIZER_SPORTYSKY_API_AUDIENCE') ?? self::API_AUDIENCE;
-        $this->sportrizerAuthUrl = getenv('SPORTRIZER_AUTH_URL') ?? self::SPORTRIZER_AUTH_URL;
+        return json_decode($reponse->getBody()->getContents(), true);
     }
 }
