@@ -7,6 +7,7 @@ namespace Sportrizer\Sportysky;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\HandlerStack;
 
 final class ApiClient
 {
@@ -21,15 +22,17 @@ final class ApiClient
 
     /**
      * @param string $token JWT token provided by Authenticator
+     * @param HandlerStack|null $handlerStack useful to mock API calls for tests
      */
-    public function __construct(string $token)
+    public function __construct(string $token, HandlerStack $handlerStack = null)
     {
         $this->http = new Client([
             'base_uri' => getenv('SPORTYSKY_API_URL') ?: self::SPORTYSKY_API_URL,
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
                 'Accept' => 'application/json'
-            ]
+            ],
+            'handler' => $handlerStack
         ]);
     }
 
