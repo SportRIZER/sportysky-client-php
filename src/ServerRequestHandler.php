@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
-use GuzzleHttp\Psr7\ServerRequest;
+use Psr\Http\Message\ServerRequestInterface;
 
 final class ServerRequestHandler
 {
@@ -20,7 +20,7 @@ final class ServerRequestHandler
         $this->apiClient = $apiClient;
     }
 
-    public function handle(ServerRequest $serverRequest): array
+    public function handle(ServerRequestInterface $serverRequest): array
     {
         $queryParams = $serverRequest->getQueryParams();
         if (isset($queryParams['mapView'])) {
