@@ -2,6 +2,8 @@
 
 **How to integrate SportySKY within your PHP project**
 
+[![Build Status](https://travis-ci.org/SportRIZER/sportysky-client-php.svg?branch=master)](https://travis-ci.org/SportRIZER/sportysky-client-php)
+
 ## Requirements
 
  - PHP ^7.2
