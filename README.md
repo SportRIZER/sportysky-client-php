@@ -44,3 +44,9 @@ echo json_encode($apiResponse);
 You should set your client ID (`SPORTYSKY_CLIENT_ID`) and client secret (`SPORTYSKY_CLIENT_SECRET`) in environment variables.
 
 This script will authenticate your sever and return json from the SportySKY API that will be consumed by the javascript library.
+
+## Testing
+
+```bash
+vendor/bin/phpunit tests
+```
