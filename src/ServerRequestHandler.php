@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
+use GuzzleHttp\Psr7\ServerRequest;
+
 final class ServerRequestHandler
 {
     /**
@@ -18,10 +20,11 @@ final class ServerRequestHandler
         $this->apiClient = $apiClient;
     }
 
-    public function handle(): array
+    public function handle(ServerRequest $serverRequest): array
     {
-        if ($mapView = filter_input(INPUT_GET, 'mapView', FILTER_SANITIZE_STRING)) {
-            return $this->apiClient->getForecast($mapView);
+        $queryParams = $serverRequest->getQueryParams();
+        if (isset($queryParams['mapView'])) {
+            return $this->apiClient->getForecast($queryParams['mapView']);
         }
 
         return [];

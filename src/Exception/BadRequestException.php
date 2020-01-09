@@ -6,9 +6,9 @@ namespace Sportrizer\Sportysky\Exception;
 
 use Exception;
 
-class AuthenticationException extends Exception
+class BadRequestException extends Exception
 {
-    public function __construct($message, $code = 401)
+    public function __construct($message, $code = 400)
     {
         parent::__construct($message, $code);
     }

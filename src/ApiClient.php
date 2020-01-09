@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
-use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\HandlerStack;
+use Sportrizer\Sportysky\Exception\BadRequestException;
 
 final class ApiClient
 {
     private const SPORTYSKY_API_URL = 'https://api.sportysky.com';
+    private const BAD_REQUEST_MESSAGE = 'Bad request';
 
     /**
      * Sportysky Guzzle client
@@ -47,8 +49,8 @@ final class ApiClient
             ]);
 
             return json_decode($reponse->getBody()->getContents(), true);
-        } catch (ServerException $e) {
-            throw new Exception($e->getResponse()->getBody()->getContents());
+        } catch (ClientException | ServerException $e) {
+            throw new BadRequestException(self::BAD_REQUEST_MESSAGE);
         }
     }
 }

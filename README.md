@@ -26,6 +26,7 @@ Create a php script that will be called by the javascript library :
 
 declare(strict_types=1);
 
+use GuzzleHttp\Psr7\ServerRequest;
 use Sportrizer\Sportysky\ApiClient;
 use Sportrizer\Sportysky\Authenticator;
 use Sportrizer\Sportysky\ServerRequestHandler;
@@ -34,9 +35,10 @@ require '../vendor/autoload.php';
 
 $authenticator = new Authenticator(getenv('SPORTYSKY_CLIENT_ID'), getenv('SPORTYSKY_CLIENT_SECRET'));
 $apiClient = new ApiClient($authenticator->getToken());
-$apiResponse = (new ServerRequestHandler($apiClient))->handle();
+$apiResponse = (new ServerRequestHandler($apiClient))->handle(ServerRequest::fromGlobals());
 
 echo json_encode($apiResponse);
+
 ```
 
 You should set your client ID (`SPORTYSKY_CLIENT_ID`) and client secret (`SPORTYSKY_CLIENT_SECRET`) in environment variables.
