@@ -27,6 +27,19 @@ class AuthenticatorTest extends TestCase
         $authenticator->getToken();
     }
 
+    public function testShouldThrowExceptionOnBadAuthResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'bad-auth-response.json');
+    
+        $this->expectException(AuthenticationException::class);
+        $this->expectExceptionMessage('Could not authenticate to SportRIZER');
+        $this->expectExceptionCode(401);
+
+        $authenticator = $this->getAuthenticator(401, $body);
+
+        $authenticator->getToken();
+    }
+
     public function testShouldReturnValidToken()
     {
         $body = file_get_contents(self::MOCK_DIRECTORY . 'authentication-success.json');
