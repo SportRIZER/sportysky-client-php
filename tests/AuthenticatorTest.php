@@ -35,7 +35,7 @@ class AuthenticatorTest extends TestCase
         $this->expectExceptionMessage('Could not authenticate to SportRIZER');
         $this->expectExceptionCode(401);
 
-        $authenticator = $this->getAuthenticator(401, $body);
+        $authenticator = $this->getAuthenticator(200, $body);
 
         $authenticator->getToken();
     }
