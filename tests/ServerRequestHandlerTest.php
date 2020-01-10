@@ -31,7 +31,7 @@ class ServerRequestHandlerTest extends TestCase
         $result = $serverRequestHandler->handle($serverRequest);
     }
 
-    public function testShouldReturnEmptyData()
+    public function testShouldReturnEmptyJsonResponse()
     {
         $serverRequestHandler = $this->getServerRequestHandler(200, '');
 
@@ -39,10 +39,10 @@ class ServerRequestHandlerTest extends TestCase
 
         $result = $serverRequestHandler->handle($serverRequest);
 
-        $this->assertEquals([], $result);
+        $this->assertEquals('{}', $result->getBody()->getContents());
     }
 
-    public function testShouldReturnForecastData()
+    public function testShouldReturnForecastJson()
     {
         $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
 
@@ -55,7 +55,7 @@ class ServerRequestHandlerTest extends TestCase
 
         $result = $serverRequestHandler->handle($serverRequest);
 
-        $this->assertEquals(json_decode($body, true), $result);
+        $this->assertEquals($body, $result->getBody()->getContents());
     }
 
     private function getServerRequestHandler(int $status, $body = null)

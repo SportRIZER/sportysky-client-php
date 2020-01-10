@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use Sportrizer\Sportysky\Exception\BadRequestException;
 
 final class ApiClient
@@ -24,7 +25,7 @@ final class ApiClient
 
     /**
      * @param string $token JWT token provided by Authenticator
-     * @param HandlerStack|null $handlerStack useful to mock API calls for tests
+     * @param HandlerStack|null $handlerStack useful for caching or mocking API calls in tests
      */
     public function __construct(string $token, HandlerStack $handlerStack = null)
     {
@@ -38,7 +39,25 @@ final class ApiClient
         ]);
     }
 
+    /**
+     * Returns json decoded data of the forecast API call
+     *
+     * @param string $mapView
+     * @return array
+     */
     public function getForecast(string $mapView): array
+    {
+        return json_decode($this->getForecastResponse($mapView)->getBody()->getContents(), true);
+    }
+
+    /**
+     * Returns a PSR7 response of the forecast API call
+     *
+     * @param string $mapView
+     * @throws BadRequestException
+     * @return Response
+     */
+    public function getForecastResponse(string $mapView): Response
     {
         try {
             $reponse = $this->http->get('/forecast/customers/me/theme', [
@@ -48,7 +67,7 @@ final class ApiClient
                 ]
             ]);
 
-            return json_decode($reponse->getBody()->getContents(), true);
+            return $reponse;
         } catch (ClientException | ServerException $e) {
             throw new BadRequestException(self::BAD_REQUEST_MESSAGE);
         }
