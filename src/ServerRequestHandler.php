@@ -25,8 +25,12 @@ final class ServerRequestHandler
     public function handle(ServerRequestInterface $serverRequest): Response
     {
         $queryParams = $serverRequest->getQueryParams();
-        if (isset($queryParams['mapView'])) {
-            return $this->apiClient->getForecastResponse($queryParams['mapView']);
+        if (isset($queryParams['mapView']) && isset($queryParams['minDate'])) {
+            return $this->apiClient->getForecastResponse(
+                $queryParams['mapView'],
+                $queryParams['minDate'],
+                $queryParams['maxDate'] ?? null
+            );
         }
 
         return new Response(200, [], json_encode(new stdClass()));

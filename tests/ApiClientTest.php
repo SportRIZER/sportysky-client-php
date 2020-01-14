@@ -21,7 +21,7 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(400);
 
-        $apiClient->getForecast('invalidView');
+        $apiClient->getForecast('invalidView', '2020-01-14T17:36:00+00:00');
     }
 
     public function testShouldReturnJsonDecodedForecastData()
@@ -30,7 +30,7 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getForecast('country');
+        $result = $apiClient->getForecast('country', '2020-01-14T17:36:00+00:00');
 
         $this->assertEquals(json_decode($body, true), $result);
     }

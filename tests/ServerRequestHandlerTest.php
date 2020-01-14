@@ -25,10 +25,11 @@ class ServerRequestHandlerTest extends TestCase
 
         $serverRequest = new ServerRequest('GET', '/api.php');
         $serverRequest = $serverRequest->withQueryParams([
-            'mapView' => 'invalidView'
+            'mapView' => 'invalidView',
+            'minDate' => '2020-01-14T17:36:00+00:00'
         ]);
 
-        $result = $serverRequestHandler->handle($serverRequest);
+        $serverRequestHandler->handle($serverRequest);
     }
 
     public function testShouldReturnEmptyJsonResponse()
@@ -50,7 +51,8 @@ class ServerRequestHandlerTest extends TestCase
 
         $serverRequest = new ServerRequest('GET', '/api.php');
         $serverRequest = $serverRequest->withQueryParams([
-            'mapView' => 'country'
+            'mapView' => 'country',
+            'minDate' => '2020-01-14T17:36:00+00:00'
         ]);
 
         $result = $serverRequestHandler->handle($serverRequest);
