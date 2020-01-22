@@ -40,19 +40,6 @@ final class ApiClient
     }
 
     /**
-     * Returns json decoded data of the forecast API call
-     *
-     * @param string $mapView
-     * @param string $minDate
-     * @param string $maxDate
-     * @return array
-     */
-    public function getForecast(string $mapView, string $minDate, string $maxDate = null): array
-    {
-        return json_decode($this->getForecastResponse($mapView, $minDate, $maxDate)->getBody()->getContents(), true);
-    }
-
-    /**
      * Returns a PSR7 response of the forecast API call
      *
      * @param string $mapView
@@ -60,15 +47,20 @@ final class ApiClient
      * @throws BadRequestException
      * @return Response
      */
-    public function getForecastResponse(string $mapView, string $minDate, string $maxDate = null): Response
-    {
+    public function getForecastResponse(
+        string $minDate,
+        string $maxDate = null,
+        string $departmentIsoCode = null,
+        string $regionIsoCode = null
+    ): Response {
         try {
             $reponse = $this->http->get('/forecast/customers/me/theme', [
                 'query' => [
                     'groups[]' => 'forecast',
-                    'mapView' => $mapView,
                     'minDate' => $minDate,
                     'maxDate' => $maxDate,
+                    'departmentIsoCode' => $departmentIsoCode,
+                    'regionIsoCode' => $regionIsoCode
                 ]
             ]);
 
