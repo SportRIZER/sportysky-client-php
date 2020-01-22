@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ServerRequestInterface;
+use stdClass;
+
 final class ServerRequestHandler
 {
     /**
@@ -18,12 +22,17 @@ final class ServerRequestHandler
         $this->apiClient = $apiClient;
     }
 
-    public function handle(): array
+    public function handle(ServerRequestInterface $serverRequest): Response
     {
-        if ($mapView = filter_input(INPUT_GET, 'mapView', FILTER_SANITIZE_STRING)) {
-            return $this->apiClient->getForecast($mapView);
+        $queryParams = $serverRequest->getQueryParams();
+        if (isset($queryParams['mapView']) && isset($queryParams['minDate'])) {
+            return $this->apiClient->getForecastResponse(
+                $queryParams['mapView'],
+                $queryParams['minDate'],
+                $queryParams['maxDate'] ?? null
+            );
         }
 
-        return [];
+        return new Response(200, [], json_encode(new stdClass()));
     }
 }

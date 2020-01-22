@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
-use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use Sportrizer\Sportysky\Exception\BadRequestException;
 
 final class ApiClient
 {
     private const SPORTYSKY_API_URL = 'https://api.sportysky.com';
+    private const BAD_REQUEST_MESSAGE = 'Bad request';
 
     /**
      * Sportysky Guzzle client
@@ -21,31 +25,56 @@ final class ApiClient
 
     /**
      * @param string $token JWT token provided by Authenticator
+     * @param HandlerStack|null $handlerStack useful for caching or mocking API calls in tests
      */
-    public function __construct(string $token)
+    public function __construct(string $token, HandlerStack $handlerStack = null)
     {
         $this->http = new Client([
             'base_uri' => getenv('SPORTYSKY_API_URL') ?: self::SPORTYSKY_API_URL,
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
                 'Accept' => 'application/json'
-            ]
+            ],
+            'handler' => $handlerStack
         ]);
     }
 
-    public function getForecast(string $mapView): array
+    /**
+     * Returns json decoded data of the forecast API call
+     *
+     * @param string $mapView
+     * @param string $minDate
+     * @param string $maxDate
+     * @return array
+     */
+    public function getForecast(string $mapView, string $minDate, string $maxDate = null): array
+    {
+        return json_decode($this->getForecastResponse($mapView, $minDate, $maxDate)->getBody()->getContents(), true);
+    }
+
+    /**
+     * Returns a PSR7 response of the forecast API call
+     *
+     * @param string $mapView
+     * @param string $minDate
+     * @throws BadRequestException
+     * @return Response
+     */
+    public function getForecastResponse(string $mapView, string $minDate, string $maxDate = null): Response
     {
         try {
             $reponse = $this->http->get('/forecast/customers/me/theme', [
                 'query' => [
                     'groups[]' => 'forecast',
-                    'mapView' => $mapView
+                    'mapView' => $mapView,
+                    'minDate' => $minDate,
+                    'maxDate' => $maxDate,
                 ]
             ]);
 
-            return json_decode($reponse->getBody()->getContents(), true);
-        } catch (ServerException $e) {
-            throw new Exception($e->getResponse()->getBody()->getContents());
+            return $reponse;
+        } catch (ClientException | ServerException $e) {
+            throw new BadRequestException(self::BAD_REQUEST_MESSAGE);
         }
     }
 }

@@ -1,0 +1,37 @@
+{
+	"countryMap": {
+		"country": {
+			"isoCode": "esse",
+			"name": "Venezuela"
+		},
+		"name": "fugit",
+		"file": {
+			"contentUrl": "\/media\/file.svg",
+			"filePath": "file.svg"
+		}
+	},
+	"name": "nisi",
+	"spots": [{
+		"title": "quis",
+		"latitude": 44,
+		"longitude": -16,
+		"feedsUpdatedAt": "2020-01-08T09:36:00+00:00",
+		"feeds": [{
+			"date": "2020-01-09T11:00:00+00:00",
+			"humidity": 60.5,
+			"airTemperature": 11.9,
+			"airQuality": null,
+			"precipitation": 0,
+			"weather": 31,
+			"uv": 0,
+			"windSpeed": 25,
+			"windDirection": 305,
+			"windGust": 28.8,
+			"windChill": 11.9,
+			"waveDirection": 302,
+			"swellHeight": 6.1,
+			"swellPeriodicity": 14.3,
+			"mslPressure": 1027
+		}]
+	}]
+}
