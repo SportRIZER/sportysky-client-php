@@ -9,7 +9,7 @@
 
 ## Getting started
 
-Install SportySKY PHP client via the composer package manager :
+Install the SportySKY PHP client via the composer package manager :
 
 ```bash
 composer require sportrizer/sportysky-client-php
@@ -17,7 +17,7 @@ composer require sportrizer/sportysky-client-php
 
 ### Integration with the SportySKY javascript library
 
-This library is developed to work seemlessly with the SportySKY javascript library provided by SportRIZER. 
+This library is developed to work seamlessly with the SportySKY javascript library provided by SportRIZER. 
 
 Create a php script that will be called by the javascript library :
 
