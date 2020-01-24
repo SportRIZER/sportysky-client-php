@@ -31,7 +31,7 @@ class ServerRequestHandlerTest extends TestCase
         $serverRequestHandler->handle($serverRequest);
     }
 
-    public function testShouldBadRequestResponse()
+    public function testShouldReturnBadRequestResponse()
     {
         $serverRequestHandler = $this->getServerRequestHandler(200, '');
 

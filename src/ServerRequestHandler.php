@@ -32,7 +32,7 @@ final class ServerRequestHandler
                 $queryParams['minDate'],
                 $queryParams['maxDate'] ?? null,
                 $queryParams[self::DEPARTMENT_ISO_PARAM] ?? null,
-                $queryParams[self::REGION_ISO_PARAM] ?? null,
+                $queryParams[self::REGION_ISO_PARAM] ?? null
             );
         }
 
