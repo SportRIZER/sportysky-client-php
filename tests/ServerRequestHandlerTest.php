@@ -15,7 +15,7 @@ class ServerRequestHandlerTest extends TestCase
 {
     private const MOCK_DIRECTORY = __DIR__  . DIRECTORY_SEPARATOR . 'mock' . DIRECTORY_SEPARATOR;
 
-    public function testShouldThrowExceptionOnInvalidMapView()
+    public function testShouldThrowExceptionOnMissingMinDate()
     {
         $this->expectException(BadRequestException::class);
         $this->expectExceptionMessage('Bad request');
@@ -25,14 +25,13 @@ class ServerRequestHandlerTest extends TestCase
 
         $serverRequest = new ServerRequest('GET', '/api.php');
         $serverRequest = $serverRequest->withQueryParams([
-            'mapView' => 'invalidView',
-            'minDate' => '2020-01-14T17:36:00+00:00'
+            'minDate' => ''
         ]);
 
         $serverRequestHandler->handle($serverRequest);
     }
 
-    public function testShouldReturnEmptyJsonResponse()
+    public function testShouldBadRequestResponse()
     {
         $serverRequestHandler = $this->getServerRequestHandler(200, '');
 
@@ -40,7 +39,7 @@ class ServerRequestHandlerTest extends TestCase
 
         $result = $serverRequestHandler->handle($serverRequest);
 
-        $this->assertEquals('{}', $result->getBody()->getContents());
+        $this->assertEquals('{"error":"Bad request"}', $result->getBody()->getContents());
     }
 
     public function testShouldReturnForecastJson()
@@ -51,7 +50,6 @@ class ServerRequestHandlerTest extends TestCase
 
         $serverRequest = new ServerRequest('GET', '/api.php');
         $serverRequest = $serverRequest->withQueryParams([
-            'mapView' => 'country',
             'minDate' => '2020-01-14T17:36:00+00:00'
         ]);
 
