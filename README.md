@@ -118,6 +118,6 @@ $authenticator = new Authenticator(getenv('SPORTYSKY_CLIENT_ID'), getenv('SPORTY
 ## Testing
 
 ``` bash
-vendor/bin/phpunit tests
+composer test
 ```
 
