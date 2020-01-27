@@ -51,7 +51,8 @@ final class ApiClient
         string $minDate,
         string $maxDate = null,
         string $departmentIsoCode = null,
-        string $regionIsoCode = null
+        string $regionIsoCode = null,
+        string $countryIsoCode = null
     ): Response {
         try {
             $reponse = $this->http->get('/forecast/customers/me/theme', [
@@ -60,7 +61,8 @@ final class ApiClient
                     'minDate' => $minDate,
                     'maxDate' => $maxDate,
                     'departmentIsoCode' => $departmentIsoCode,
-                    'regionIsoCode' => $regionIsoCode
+                    'regionIsoCode' => $regionIsoCode,
+                    'countryIsoCode' => $countryIsoCode
                 ]
             ]);
 
