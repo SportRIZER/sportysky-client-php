@@ -12,7 +12,7 @@ use Predis\Client;
 use Sportrizer\Sportysky\ApiClient;
 use Sportrizer\Sportysky\Authenticator;
 use Sportrizer\Sportysky\ServerRequestHandler;
-use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 
 require '../vendor/autoload.php';
 

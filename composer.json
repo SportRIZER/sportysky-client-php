@@ -20,7 +20,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "kevinrob/guzzle-cache-middleware": "^3.3",
         "predis/predis": "^1.1",
-        "zendframework/zend-httphandlerrunner": "^1.1"
+        "laminas/laminas-httphandlerrunner": "^1.1"
     },
     "autoload": {
         "psr-4": {
