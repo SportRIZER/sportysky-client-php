@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/SportRIZER/sportysky-client-php.svg?branch=master)](https://travis-ci.org/SportRIZER/sportysky-client-php)
 [![codecov](https://codecov.io/gh/SportRIZER/sportysky-client-php/branch/master/graphs/badge.svg)](https://codecov.io/gh/SportRIZER/sportysky-client-php)
+
 ## Requirements
 
  - PHP ^7.2
@@ -17,9 +18,60 @@ Install the SportySKY PHP client via the composer package manager :
 composer require sportrizer/sportysky-client-php
 ```
 
+### API Client
+
+#### getCountryForecastResponse
+
+Example : 
+
+``` php
+$response = $apiClient->getCountryForecastResponse('FR', '2020-01-14T17:36:00+00:00');
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+#### getRegionForecastResponse
+
+Example : 
+
+``` php
+$response = $apiClient->getRegionForecastResponse('FR-BRE', '2020-01-14T17:36:00+00:00');
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+#### getDepartmentForecastResponse
+
+Example : 
+
+``` php
+$response = $apiClient->getDepartmentForecastResponse('FR-29', '2020-01-14T17:36:00+00:00');
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+#### getSpotForecastResponse
+
+Example : 
+
+``` php
+$response = $apiClient->getSpotForecastResponse(
+    '1234-1234-1234-1234',
+    '2020-01-14T17:36:00+00:00',
+    '2020-01-16T17:36:00+00:00'
+);
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+#### getForecastResponse
+
+Example : 
+
+``` php
+$response = $apiClient->getForecastResponse('2020-01-14T17:36:00+00:00', null, null, null, 'FR');
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
 ### Integration with the SportySKY javascript library
 
-This library is developed to work seamlessly with the SportySKY javascript library provided by SportRIZER. 
+This library is developed to work seamlessly with the SportySKY javascript library provided by SportRIZER.
 
 Create a php script that will be called by the javascript library :
 

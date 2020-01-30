@@ -52,7 +52,8 @@ final class ApiClient
         string $maxDate = null,
         string $departmentIsoCode = null,
         string $regionIsoCode = null,
-        string $countryIsoCode = null
+        string $countryIsoCode = null,
+        string $spotUuid = null
     ): Response {
         try {
             $reponse = $this->http->get('/forecast/customers/me/theme', [
@@ -62,7 +63,8 @@ final class ApiClient
                     'maxDate' => $maxDate,
                     'departmentIsoCode' => $departmentIsoCode,
                     'regionIsoCode' => $regionIsoCode,
-                    'countryIsoCode' => $countryIsoCode
+                    'countryIsoCode' => $countryIsoCode,
+                    'spotUuid' => $spotUuid
                 ]
             ]);
 
@@ -70,5 +72,66 @@ final class ApiClient
         } catch (ClientException | ServerException $e) {
             throw new BadRequestException(self::BAD_REQUEST_MESSAGE);
         }
+    }
+
+    /**
+     * Returns the API response for a department
+     *
+     * @param string $departmentIsoCode
+     * @param string $minDate
+     * @param string $maxDate
+     * @return Response
+     */
+    public function getDepartmentForecastResponse(
+        string $departmentIsoCode,
+        string $minDate,
+        string $maxDate = null
+    ): Response {
+        return $this->getForecastResponse($minDate, $maxDate, $departmentIsoCode);
+    }
+
+    /**
+     * Returns the API response for a region
+     *
+     * @param string $regionIsoCode
+     * @param string $minDate
+     * @param string $maxDate
+     * @return Response
+     */
+    public function getRegionForecastResponse(
+        string $regionIsoCode,
+        string $minDate,
+        string $maxDate = null
+    ): Response {
+        return $this->getForecastResponse($minDate, $maxDate, null, $regionIsoCode);
+    }
+
+    /**
+     * Returns the API response for a country
+     *
+     * @param string $countryIsoCode
+     * @param string $minDate
+     * @param string $maxDate
+     * @return Response
+     */
+    public function getCountryForecastResponse(
+        string $countryIsoCode,
+        string $minDate,
+        string $maxDate = null
+    ): Response {
+        return $this->getForecastResponse($minDate, $maxDate, null, null, $countryIsoCode);
+    }
+
+    /**
+     * Returns the API response for a single spot
+     *
+     * @param string $spotUuid
+     * @param string $minDate
+     * @param string $maxDate
+     * @return Response
+     */
+    public function getSpotForecastResponse(string $spotUuid, string $minDate, string $maxDate): Response
+    {
+        return $this->getForecastResponse($minDate, $maxDate, null, null, null, $spotUuid);
     }
 }

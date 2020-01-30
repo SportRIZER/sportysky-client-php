@@ -30,7 +30,55 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getForecastResponse('2020-01-14T17:36:00+00:00');
+        $result = $apiClient->getForecastResponse('2020-01-14T17:36:00+00:00', null, null, null, 'FR');
+
+        $this->assertEquals($body, $result->getBody()->getContents());
+    }
+
+    public function testShouldReturnValidCountryResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
+
+        $apiClient = $this->getApiClient(200, $body);
+
+        $result = $apiClient->getCountryForecastResponse('FR', '2020-01-14T17:36:00+00:00');
+
+        $this->assertEquals($body, $result->getBody()->getContents());
+    }
+
+    public function testShouldReturnValidRegionResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
+
+        $apiClient = $this->getApiClient(200, $body);
+
+        $result = $apiClient->getRegionForecastResponse('FR-BRE', '2020-01-14T17:36:00+00:00');
+
+        $this->assertEquals($body, $result->getBody()->getContents());
+    }
+
+    public function testShouldReturnValidDepartmentResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
+
+        $apiClient = $this->getApiClient(200, $body);
+
+        $result = $apiClient->getDepartmentForecastResponse('FR-29', '2020-01-14T17:36:00+00:00');
+
+        $this->assertEquals($body, $result->getBody()->getContents());
+    }
+
+    public function testShouldReturnValidSpotResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
+
+        $apiClient = $this->getApiClient(200, $body);
+
+        $result = $apiClient->getSpotForecastResponse(
+            '1234-1234-1234-1234',
+            '2020-01-14T17:36:00+00:00',
+            '2020-01-16T17:36:00+00:00'
+        );
 
         $this->assertEquals($body, $result->getBody()->getContents());
     }
