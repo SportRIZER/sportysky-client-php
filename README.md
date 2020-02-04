@@ -1,9 +1,25 @@
+<!-- omit in toc -->
 # SportySKY PHP client
 
 **How to integrate SportySKY within your PHP project**
 
 [![Build Status](https://travis-ci.org/SportRIZER/sportysky-client-php.svg?branch=master)](https://travis-ci.org/SportRIZER/sportysky-client-php)
 [![codecov](https://codecov.io/gh/SportRIZER/sportysky-client-php/branch/master/graphs/badge.svg)](https://codecov.io/gh/SportRIZER/sportysky-client-php)
+
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+  - [API Client](#api-client)
+    - [getCountryForecastResponse](#getcountryforecastresponse)
+    - [getRegionForecastResponse](#getregionforecastresponse)
+    - [getDepartmentForecastResponse](#getdepartmentforecastresponse)
+    - [getSpotForecastResponse](#getspotforecastresponse)
+    - [getForecastResponse](#getforecastresponse)
+  - [Integration with the SportySKY javascript library](#integration-with-the-sportysky-javascript-library)
+- [Caching](#caching)
+  - [SportySKY API responses](#sportysky-api-responses)
+  - [JWT Authentication token](#jwt-authentication-token)
+- [Examples](#examples)
+- [Testing](#testing)
 
 ## Requirements
 
@@ -19,6 +35,8 @@ composer require sportrizer/sportysky-client-php
 ```
 
 ### API Client
+
+___
 
 #### getCountryForecastResponse
 
@@ -71,6 +89,7 @@ $data = json_decode($response->getBody()->getContents(), true);
 
 ### Integration with the SportySKY javascript library
 
+___
 This library is developed to work seamlessly with the SportySKY javascript library provided by SportRIZER.
 
 Create a php script that will be called by the javascript library :
@@ -84,7 +103,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use Sportrizer\Sportysky\ApiClient;
 use Sportrizer\Sportysky\Authenticator;
 use Sportrizer\Sportysky\ServerRequestHandler;
-use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 
 require '../vendor/autoload.php';
 
@@ -99,8 +118,12 @@ $apiClient = new ApiClient($authenticator->getToken());
 $apiResponse = (new ServerRequestHandler($apiClient))->handle(ServerRequest::fromGlobals());
 
 // Outputs the SportySKY API response
-(new SapiEmitter())->emit($apiResponse);
+(new SapiStreamEmitter())->emit($apiResponse);
 ```
+
+> **Note** : The `SapiStreamEmitter` comes with a suggested library.<br>
+> Install it with this command :<br><br>
+> `composer require laminas/laminas-httphandlerrunner` 
 
 You should set your client ID ( `SPORTYSKY_CLIENT_ID` ) and client secret ( `SPORTYSKY_CLIENT_SECRET` ) in environment variables.
 
@@ -109,7 +132,7 @@ This script will authenticate your sever and return json from the SportySKY API 
 ## Caching
 
 ### SportySKY API responses
-
+___
 API calls are made by [Guzzle](https://github.com/guzzle/guzzle) which can be configured with the [Kevinrob's cache middleware](https://github.com/Kevinrob/guzzle-cache-middleware)
 
 You can for example provide a [PSR-16](https://www.php-fig.org/psr/psr-16/) compatible Redis cache to the second argument of `ApiClient` : 
@@ -139,6 +162,10 @@ $cacheHandler->push(new CacheMiddleware(
 $apiClient = new ApiClient($authenticator->getToken(), $cacheHandler);
 ```
 
+> **Note** : The `predis/predis` package is required to make the Redis cache work.<br>
+> Install it with this command :<br><br>
+> `composer require predis/predis` 
+
 [See full example](examples/js-api-integration/redis-cached-api-proxy.php)
 
 By default, the responses will be cached according to the cache headers provided by the API but you can define your own strategy : [See more examples](https://github.com/Kevinrob/guzzle-cache-middleware#examples)
@@ -149,6 +176,7 @@ https://github.com/desarrolla2/Cache#adapters
 
 ### JWT Authentication token
 
+___
 By default, the JWT token is cached in the temporary system directory until its expiration but you can provide your own [PSR-16](https://www.php-fig.org/psr/psr-16/) cache integration as the third argument of the `Authenticator` .
 
 Exemple with Redis :
