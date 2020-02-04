@@ -2,12 +2,12 @@
 
 namespace Sportrizer\Sportysky\Tests;
 
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Sportrizer\Sportysky\ApiClient;
-use Sportrizer\Sportysky\Exception\BadRequestException;
 
 class ApiClientTest extends TestCase
 {
@@ -15,8 +15,7 @@ class ApiClientTest extends TestCase
 
     public function testShouldThrowExceptionForMissingMinDate()
     {
-        $this->expectException(BadRequestException::class);
-        $this->expectExceptionMessage('Bad request');
+        $this->expectException(ClientException::class);
         $this->expectExceptionCode(400);
 
         $apiClient = $this->getApiClient(400);
