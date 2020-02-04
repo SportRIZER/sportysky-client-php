@@ -12,7 +12,7 @@ use Predis\Client;
 use Sportrizer\Sportysky\ApiClient;
 use Sportrizer\Sportysky\Authenticator;
 use Sportrizer\Sportysky\ServerRequestHandler;
-use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 
 require '../vendor/autoload.php';
 
@@ -34,4 +34,4 @@ $cacheHandler->push(new CacheMiddleware(
 $apiClient = new ApiClient($authenticator->getToken(), $cacheHandler);
 $apiResponse = (new ServerRequestHandler($apiClient))->handle(ServerRequest::fromGlobals());
 
-(new SapiEmitter())->emit($apiResponse);
+(new SapiStreamEmitter())->emit($apiResponse);

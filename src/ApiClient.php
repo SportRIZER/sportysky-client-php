@@ -55,23 +55,18 @@ final class ApiClient
         string $countryIsoCode = null,
         string $spotUuid = null
     ): Response {
-        try {
-            $reponse = $this->http->get('/forecast/customers/me/theme', [
-                'query' => [
-                    'groups[]' => 'forecast',
-                    'minDate' => $minDate,
-                    'maxDate' => $maxDate,
-                    'departmentIsoCode' => $departmentIsoCode,
-                    'regionIsoCode' => $regionIsoCode,
-                    'countryIsoCode' => $countryIsoCode,
-                    'spotUuid' => $spotUuid
-                ]
-            ]);
-
-            return $reponse;
-        } catch (ClientException | ServerException $e) {
-            throw new BadRequestException(self::BAD_REQUEST_MESSAGE);
-        }
+        return $this->http->get('/forecast/customers/me/theme', [
+            'query' => [
+                'groups[]' => 'forecast',
+                'minDate' => $minDate,
+                'maxDate' => $maxDate,
+                'departmentIsoCode' => $departmentIsoCode,
+                'regionIsoCode' => $regionIsoCode,
+                'countryIsoCode' => $countryIsoCode,
+                'spotUuid' => $spotUuid
+            ],
+            'stream' => true
+        ]);
     }
 
     /**

@@ -29,14 +29,13 @@ final class ServerRequestHandler
     {
         $queryParams = $serverRequest->getQueryParams();
         if (isset($queryParams['minDate'])) {
-            $response = $this->apiClient->getForecastResponse(
+            return $this->apiClient->getForecastResponse(
                 $queryParams['minDate'],
                 $queryParams['maxDate'] ?? null,
                 $queryParams[self::DEPARTMENT_ISO_PARAM] ?? null,
                 $queryParams[self::REGION_ISO_PARAM] ?? null,
                 $queryParams[self::COUNTRY_ISO_PARAM] ?? null
             );
-            return $response->withoutHeader('Transfer-Encoding');
         }
 
         return new Response(400, [], json_encode((object) ["error" => "Bad request"]));
