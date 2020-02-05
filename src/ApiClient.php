@@ -63,7 +63,7 @@ final class ApiClient
             'query' => [
                 'groups[]' => 'forecast',
                 'minDate' => $roundMinDate->format('c'),
-                'maxDate' => $roundMaxDate->format('c'),
+                'maxDate' => $roundMaxDate ? $roundMaxDate->format('c') : null,
                 'departmentIsoCode' => $departmentIsoCode,
                 'regionIsoCode' => $regionIsoCode,
                 'countryIsoCode' => $countryIsoCode,
