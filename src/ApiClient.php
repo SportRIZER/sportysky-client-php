@@ -62,8 +62,8 @@ final class ApiClient
         return $this->http->get('/forecast/customers/me/theme', [
             'query' => [
                 'groups[]' => 'forecast',
-                'minDate' => $roundMinDate,
-                'maxDate' => $roundMaxDate,
+                'minDate' => $roundMinDate->format('c'),
+                'maxDate' => $roundMaxDate->format('c'),
                 'departmentIsoCode' => $departmentIsoCode,
                 'regionIsoCode' => $regionIsoCode,
                 'countryIsoCode' => $countryIsoCode,
