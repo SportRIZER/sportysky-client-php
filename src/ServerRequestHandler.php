@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
+use DateTime;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -29,9 +30,12 @@ final class ServerRequestHandler
     {
         $queryParams = $serverRequest->getQueryParams();
         if (isset($queryParams['minDate'])) {
+            $minDate = new DateTime($queryParams['minDate']);
+            $maxDate = isset($queryParams['maxDate']) ? new DateTime($queryParams['maxDate']) : null;
+
             return $this->apiClient->getForecastResponse(
-                $queryParams['minDate'],
-                $queryParams['maxDate'] ?? null,
+                $minDate,
+                $maxDate,
                 $queryParams[self::DEPARTMENT_ISO_PARAM] ?? null,
                 $queryParams[self::REGION_ISO_PARAM] ?? null,
                 $queryParams[self::COUNTRY_ISO_PARAM] ?? null
