@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sportrizer\Sportysky;
 
+use DateTimeInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
@@ -48,18 +49,21 @@ final class ApiClient
      * @return Response
      */
     public function getForecastResponse(
-        string $minDate,
-        string $maxDate = null,
+        DateTimeInterface $minDate,
+        DateTimeInterface $maxDate = null,
         string $departmentIsoCode = null,
         string $regionIsoCode = null,
         string $countryIsoCode = null,
         string $spotUuid = null
     ): Response {
+        $roundMinDate = $minDate->setTime((int) $minDate->format('H'), 0, 0);
+        $roundMaxDate = $maxDate ? $maxDate->setTime((int) $maxDate->format('H'), 0, 0) : null;
+
         return $this->http->get('/forecast/customers/me/theme', [
             'query' => [
                 'groups[]' => 'forecast',
-                'minDate' => $minDate,
-                'maxDate' => $maxDate,
+                'minDate' => $roundMinDate,
+                'maxDate' => $roundMaxDate,
                 'departmentIsoCode' => $departmentIsoCode,
                 'regionIsoCode' => $regionIsoCode,
                 'countryIsoCode' => $countryIsoCode,
@@ -79,8 +83,8 @@ final class ApiClient
      */
     public function getDepartmentForecastResponse(
         string $departmentIsoCode,
-        string $minDate,
-        string $maxDate = null
+        DateTimeInterface $minDate,
+        DateTimeInterface $maxDate = null
     ): Response {
         return $this->getForecastResponse($minDate, $maxDate, $departmentIsoCode);
     }
@@ -95,8 +99,8 @@ final class ApiClient
      */
     public function getRegionForecastResponse(
         string $regionIsoCode,
-        string $minDate,
-        string $maxDate = null
+        DateTimeInterface $minDate,
+        DateTimeInterface $maxDate = null
     ): Response {
         return $this->getForecastResponse($minDate, $maxDate, null, $regionIsoCode);
     }
@@ -111,8 +115,8 @@ final class ApiClient
      */
     public function getCountryForecastResponse(
         string $countryIsoCode,
-        string $minDate,
-        string $maxDate = null
+        DateTimeInterface $minDate,
+        DateTimeInterface $maxDate = null
     ): Response {
         return $this->getForecastResponse($minDate, $maxDate, null, null, $countryIsoCode);
     }
@@ -125,8 +129,11 @@ final class ApiClient
      * @param string $maxDate
      * @return Response
      */
-    public function getSpotForecastResponse(string $spotUuid, string $minDate, string $maxDate): Response
-    {
+    public function getSpotForecastResponse(
+        string $spotUuid,
+        DateTimeInterface $minDate,
+        DateTimeInterface $maxDate
+    ): Response {
         return $this->getForecastResponse($minDate, $maxDate, null, null, null, $spotUuid);
     }
 }
