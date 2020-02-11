@@ -46,7 +46,7 @@ ___
 Example : 
 
 ``` php
-$response = $apiClient->getCountryForecastResponse('FR', '2020-01-14T17:36:00+00:00');
+$response = $apiClient->getCountryForecastResponse('FR', new \DateTime('2020-01-14T17:36:00+00:00'));
 $data = json_decode($response->getBody()->getContents(), true);
 ```
 
@@ -55,7 +55,7 @@ $data = json_decode($response->getBody()->getContents(), true);
 Example : 
 
 ``` php
-$response = $apiClient->getRegionForecastResponse('FR-BRE', '2020-01-14T17:36:00+00:00');
+$response = $apiClient->getRegionForecastResponse('FR-BRE', new \DateTime('2020-01-14T17:36:00+00:00'));
 $data = json_decode($response->getBody()->getContents(), true);
 ```
 
@@ -64,7 +64,7 @@ $data = json_decode($response->getBody()->getContents(), true);
 Example : 
 
 ``` php
-$response = $apiClient->getDepartmentForecastResponse('FR-29', '2020-01-14T17:36:00+00:00');
+$response = $apiClient->getDepartmentForecastResponse('FR-29', new \DateTime('2020-01-14T17:36:00+00:00'));
 $data = json_decode($response->getBody()->getContents(), true);
 ```
 
@@ -75,8 +75,8 @@ Example :
 ``` php
 $response = $apiClient->getSpotForecastResponse(
     '1234-1234-1234-1234',
-    '2020-01-14T17:36:00+00:00',
-    '2020-01-16T17:36:00+00:00'
+    new \DateTime('2020-01-14T17:36:00+00:00'),
+    new \DateTime('2020-01-14T17:36:00+00:00')
 );
 $data = json_decode($response->getBody()->getContents(), true);
 ```
@@ -86,7 +86,7 @@ $data = json_decode($response->getBody()->getContents(), true);
 Example : 
 
 ``` php
-$response = $apiClient->getForecastResponse('2020-01-14T17:36:00+00:00', null, null, null, 'FR');
+$response = $apiClient->getForecastResponse(new \DateTime('2020-01-14T17:36:00+00:00'), null, null, null, 'FR');
 $data = json_decode($response->getBody()->getContents(), true);
 ```
 

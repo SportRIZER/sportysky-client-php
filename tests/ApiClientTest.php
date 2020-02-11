@@ -2,26 +2,17 @@
 
 namespace Sportrizer\Sportysky\Tests;
 
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Handler\MockHandler;
+use DateTime;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Handler\MockHandler;
 use Sportrizer\Sportysky\ApiClient;
+use GuzzleHttp\Exception\ClientException;
 
 class ApiClientTest extends TestCase
 {
     private const MOCK_DIRECTORY = __DIR__  . DIRECTORY_SEPARATOR . 'mock' . DIRECTORY_SEPARATOR;
-
-    public function testShouldThrowExceptionForMissingMinDate()
-    {
-        $this->expectException(ClientException::class);
-        $this->expectExceptionCode(400);
-
-        $apiClient = $this->getApiClient(400);
-
-        $apiClient->getForecastResponse('');
-    }
 
     public function testShouldReturnValidResponse()
     {
@@ -29,7 +20,7 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getForecastResponse('2020-01-14T17:36:00+00:00', null, null, null, 'FR');
+        $result = $apiClient->getForecastResponse(new DateTime(), null, null, null, 'FR');
 
         $this->assertEquals($body, $result->getBody()->getContents());
     }
@@ -40,7 +31,7 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getCountryForecastResponse('FR', '2020-01-14T17:36:00+00:00');
+        $result = $apiClient->getCountryForecastResponse('FR', new DateTime());
 
         $this->assertEquals($body, $result->getBody()->getContents());
     }
@@ -51,7 +42,7 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getRegionForecastResponse('FR-BRE', '2020-01-14T17:36:00+00:00');
+        $result = $apiClient->getRegionForecastResponse('FR-BRE', new DateTime());
 
         $this->assertEquals($body, $result->getBody()->getContents());
     }
@@ -62,7 +53,7 @@ class ApiClientTest extends TestCase
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getDepartmentForecastResponse('FR-29', '2020-01-14T17:36:00+00:00');
+        $result = $apiClient->getDepartmentForecastResponse('FR-29', new DateTime());
 
         $this->assertEquals($body, $result->getBody()->getContents());
     }
@@ -75,8 +66,8 @@ class ApiClientTest extends TestCase
 
         $result = $apiClient->getSpotForecastResponse(
             '1234-1234-1234-1234',
-            '2020-01-14T17:36:00+00:00',
-            '2020-01-16T17:36:00+00:00'
+            new DateTime(),
+            new DateTime()
         );
 
         $this->assertEquals($body, $result->getBody()->getContents());
@@ -86,7 +77,7 @@ class ApiClientTest extends TestCase
     {
         $mock = new MockHandler([new Response($status, [], $body)]);
         $handler = HandlerStack::create($mock);
-        
+
         return new ApiClient('dummytoken', $handler);
     }
 }
