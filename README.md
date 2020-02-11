@@ -18,6 +18,9 @@
 - [Caching](#caching)
   - [SportySKY API responses](#sportysky-api-responses)
   - [JWT Authentication token](#jwt-authentication-token)
+- [Modifications](#modifications)
+  - [Modification of API return](#modification-on-api-return)
+  - [Modification and caching API return](#modification-on-api-return-and-caching)
 - [Examples](#examples)
 - [Testing](#testing)
 
@@ -189,6 +192,87 @@ use Sportrizer\Sportysky\Authenticator;
 $redisCache = new Predis(new Client(getenv('REDIS_URL'))); // tcp://127.0.0.1:6379
 
 $authenticator = new Authenticator(getenv('SPORTYSKY_CLIENT_ID'), getenv('SPORTYSKY_CLIENT_SECRET'), $redisCache);
+```
+
+
+## Modifications
+
+### Modification on API return
+___
+API returns can be modified before processed or caching
+ 
+``` php
+use Sportrizer\Sportysky\ApiClient;
+use Sportrizer\Sportysky\Authenticator;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use Psr\Http\Message\ResponseInterface;
+
+$authenticator = new Authenticator(getenv('SPORTYSKY_CLIENT_ID'), getenv('SPORTYSKY_CLIENT_SECRET'));
+
+$handler = HandlerStack::create();
+$handler->push(
+    Middleware::mapResponse(
+        function (ResponseInterface $response) {
+            $bodyContent                    = json_decode($response->getBody()->getContents(), true);
+            $bodyContent['test_Middleware'] = true;
+
+            return $response->withBody(
+                \GuzzleHttp\Psr7\stream_for(
+                    json_encode($bodyContent)
+                )
+            );
+        }
+    )
+);
+
+$apiClient = new ApiClient($authenticator->getToken(), $handler);
+```
+
+### Modification on API return and caching
+
+Example with a cache File on /tmp
+
+``` php
+use Sportrizer\Sportysky\ApiClient;
+use Sportrizer\Sportysky\Authenticator;
+use GuzzleHttp\HandlerStack;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Middleware;
+use Kevinrob\GuzzleCache\CacheMiddleware;
+use Kevinrob\GuzzleCache\Strategy\PublicCacheStrategy;
+use Doctrine\Common\Cache\FilesystemCache;
+use Kevinrob\GuzzleCache\Storage\DoctrineCacheStorage;
+
+$authenticator = new Authenticator(getenv('SPORTYSKY_CLIENT_ID'), getenv('SPORTYSKY_CLIENT_SECRET'));
+
+$handler = HandlerStack::create();
+$handler->push(
+    Middleware::mapResponse(
+        function (ResponseInterface $response) {
+            $bodyContent                    = json_decode($response->getBody()->getContents(), true);
+            $bodyContent['test_Middleware'] = true;
+
+            return $response->withBody(
+                \GuzzleHttp\Psr7\stream_for(
+                    json_encode($bodyContent)
+                )
+            );
+        }
+    )
+);
+
+$handler->push(
+    new CacheMiddleware(
+        new PublicCacheStrategy(
+            new DoctrineCacheStorage(
+                new FilesystemCache('/tmp/')
+            )
+        )
+    )
+);
+
+$apiClient = new ApiClient($authenticator->getToken(), $handler);
 ```
 
 ## Examples
