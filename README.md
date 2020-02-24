@@ -14,7 +14,7 @@
     - [getDepartmentForecastResponse](#getdepartmentforecastresponse)
     - [getSpotForecastResponse](#getspotforecastresponse)
     - [getSpotForecastByCodeAndCountryResponse](#getspotforecastbycodeandcountryresponse)
-    - [getSpotForecastByCodeAndCountryResponse](#getspotforecastbycodeandcountryresponse-1)
+    - [getSpotsResponse](#getspotsresponse)
     - [getForecastResponse](#getforecastresponse)
   - [Integration with the SportySKY javascript library](#integration-with-the-sportysky-javascript-library)
 - [Caching](#caching)
@@ -97,7 +97,7 @@ $response = $apiClient->getSpotForecastByCodeAndCountryResponse(
 $data = json_decode($response->getBody()->getContents(), true);
 ```
 
-#### getSpotForecastByCodeAndCountryResponse
+#### getSpotsResponse
 
 Example : 
 
