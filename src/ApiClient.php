@@ -68,7 +68,7 @@ final class ApiClient
                 'regionIsoCode' => $regionIsoCode,
                 'countryIsoCode' => $countryIsoCode,
                 'spotUuid' => $spotUuid,
-                'spotIsoCode' => $spotIsoCode
+                'spotCode' => $spotIsoCode
             ],
             'stream' => true
         ]);
@@ -139,19 +139,20 @@ final class ApiClient
     }
     
     /**
-     * Returns the API response for a single spot
+     * Returns the API response for a single spot (by code and country)
      *
-     * @param string $spotUuid
+     * @param string $code
      * @param string $minDate
      * @param string $maxDate
      * @return Response
      */
-    public function getSpotForecastByIsoCodeResponse(
-        string $isoCode,
+    public function getSpotForecastByCodeAndCountryResponse(
+        string $spotCode,
+        string $countryIsoCode,
         DateTimeInterface $minDate,
         DateTimeInterface $maxDate
     ): Response {
-        return $this->getForecastResponse($minDate, $maxDate, null, null, null, null, $isoCode);
+        return $this->getForecastResponse($minDate, $maxDate, null, null, $countryIsoCode, null, $spotCode);
     }
 
     /**

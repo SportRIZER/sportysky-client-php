@@ -14,7 +14,7 @@ final class ServerRequestHandler
     public const REGION_ISO_PARAM = 'regionIsoCode';
     public const COUNTRY_ISO_PARAM = 'countryIsoCode';
     public const SPOT_UUID_PARAM = 'spotUuid';
-    public const SPOT_ISO_CODE_PARAM = 'spotIsoCode';
+    public const SPOT_ISO_CODE_PARAM = 'spotCode';
 
     /**
      * SportySKY API client
