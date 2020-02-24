@@ -75,14 +75,15 @@ class ApiClientTest extends TestCase
         $this->assertEquals($body, $result->getBody()->getContents());
     }
 
-    public function testShouldReturnValidSpotByIsoCodeResponse()
+    public function testShouldReturnValidSpotByCodeAndCountryResponse()
     {
         $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
 
         $apiClient = $this->getApiClient(200, $body);
 
-        $result = $apiClient->getSpotForecastByIsoCodeResponse(
+        $result = $apiClient->getSpotForecastByCodeAndCountryResponse(
             'iso-code',
+            'FR',
             new DateTime(),
             new DateTime()
         );
