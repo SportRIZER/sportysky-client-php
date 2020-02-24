@@ -14,6 +14,7 @@
     - [getDepartmentForecastResponse](#getdepartmentforecastresponse)
     - [getSpotForecastResponse](#getspotforecastresponse)
     - [getSpotForecastByCodeAndCountryResponse](#getspotforecastbycodeandcountryresponse)
+    - [getSpotForecastByCodeAndCountryResponse](#getspotforecastbycodeandcountryresponse-1)
     - [getForecastResponse](#getforecastresponse)
   - [Integration with the SportySKY javascript library](#integration-with-the-sportysky-javascript-library)
 - [Caching](#caching)
@@ -93,6 +94,36 @@ $response = $apiClient->getSpotForecastByCodeAndCountryResponse(
     new \DateTime('2020-01-14T17:36:00+00:00'),
     new \DateTime('2020-01-14T17:36:00+00:00')
 );
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+#### getSpotForecastByCodeAndCountryResponse
+
+Example : 
+
+``` php
+use Sportrizer\Sportysky\Utils\Geo\Box;
+use Sportrizer\Sportysky\Utils\Geo\Point;
+
+// search nearest spot
+$response = $apiClient->getSpotsResponse(
+    new Point(33.3, 44.4)
+);
+$data = json_decode($response->getBody()->getContents(), true);
+
+// find all spots inside a bounding box
+$response = $apiClient->getSpotsResponse(
+    null,
+    new Box(new Point(22.2, 33.3), new Point(33.3, 44.4))
+);
+
+// pagination
+$response = $apiClient->getSpotsResponse(
+    null,
+    null,
+    3 // get page 3
+);
+
 $data = json_decode($response->getBody()->getContents(), true);
 ```
 

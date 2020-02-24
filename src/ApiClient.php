@@ -160,9 +160,10 @@ final class ApiClient
      *
      * @param Point $nearPoint find the nearest spot
      * @param Box $insideBox find all spots inside a box
+     * @param int $page page number
      * @return Response
      */
-    public function getSpotsResponse(Point $nearPoint = null, Box $insideBox = null): Response
+    public function getSpotsResponse(Point $nearPoint = null, Box $insideBox = null, int $page = 1): Response
     {
         return $this->http->get('/forecast/customers/me/theme/spots', [
             'query' => [
@@ -172,6 +173,7 @@ final class ApiClient
                 'inside_p1_lng' => $insideBox ?? $insideBox->point1->lng,
                 'inside_p2_lat' => $insideBox ?? $insideBox->point2->lat,
                 'inside_p2_lng' => $insideBox ?? $insideBox->point2->lng,
+                'page' => $page
             ],
             'stream' => true
         ]);
