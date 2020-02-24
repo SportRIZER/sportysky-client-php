@@ -13,14 +13,15 @@
     - [getRegionForecastResponse](#getregionforecastresponse)
     - [getDepartmentForecastResponse](#getdepartmentforecastresponse)
     - [getSpotForecastResponse](#getspotforecastresponse)
+    - [getSpotForecastByCodeAndCountryResponse](#getspotforecastbycodeandcountryresponse)
     - [getForecastResponse](#getforecastresponse)
   - [Integration with the SportySKY javascript library](#integration-with-the-sportysky-javascript-library)
 - [Caching](#caching)
   - [SportySKY API responses](#sportysky-api-responses)
   - [JWT Authentication token](#jwt-authentication-token)
 - [Modifications](#modifications)
-  - [Modification of API return](#modification-on-api-return)
-  - [Modification and caching API return](#modification-on-api-return-and-caching)
+  - [Modification on API return](#modification-on-api-return)
+  - [Modification on API return and caching](#modification-on-api-return-and-caching)
 - [Examples](#examples)
 - [Testing](#testing)
 
@@ -75,6 +76,20 @@ Example :
 ``` php
 $response = $apiClient->getSpotForecastResponse(
     '1234-1234-1234-1234',
+    new \DateTime('2020-01-14T17:36:00+00:00'),
+    new \DateTime('2020-01-14T17:36:00+00:00')
+);
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+#### getSpotForecastByCodeAndCountryResponse
+
+Example : 
+
+``` php
+$response = $apiClient->getSpotForecastByCodeAndCountryResponse(
+    '29000',
+    'FR',
     new \DateTime('2020-01-14T17:36:00+00:00'),
     new \DateTime('2020-01-14T17:36:00+00:00')
 );

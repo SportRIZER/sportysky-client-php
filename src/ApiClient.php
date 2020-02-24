@@ -54,7 +54,7 @@ final class ApiClient
         string $regionIsoCode = null,
         string $countryIsoCode = null,
         string $spotUuid = null,
-        string $spotIsoCode = null
+        string $spotCode = null
     ): Response {
         $roundMinDate = $minDate->setTime((int) $minDate->format('H'), 0, 0);
         $roundMaxDate = $maxDate ? $maxDate->setTime((int) $maxDate->format('H'), 0, 0) : null;
@@ -68,7 +68,7 @@ final class ApiClient
                 'regionIsoCode' => $regionIsoCode,
                 'countryIsoCode' => $countryIsoCode,
                 'spotUuid' => $spotUuid,
-                'spotCode' => $spotIsoCode
+                'spotCode' => $spotCode
             ],
             'stream' => true
         ]);
