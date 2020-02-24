@@ -1,0 +1,329 @@
+[
+    {
+      "title": "voluptasse",
+      "latitude": 60,
+      "longitude": 15,
+      "country": {
+        "hasStates": false,
+        "isoCode": "FR",
+        "phoneCode": "+33",
+        "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+        "name": "France",
+        "active": true,
+        "defaultLanguage": {
+          "code": "en",
+          "default": false,
+          "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+          "active": true,
+          "name": "English"
+        }
+      },
+      "region": {
+        "isoCode": "FR-BRE",
+        "country": {
+          "hasStates": false,
+          "isoCode": "FR",
+          "phoneCode": "+33",
+          "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+          "name": "France",
+          "active": true,
+          "defaultLanguage": {
+            "code": "en",
+            "default": false,
+            "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+            "active": true,
+            "name": "English"
+          }
+        },
+        "id": "1115f7ca-48fb-11ea-8c09-0242ac120009",
+        "name": "Bretagne",
+        "active": true,
+        "defaultLanguage": {
+          "code": "fr",
+          "default": true,
+          "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+          "active": true,
+          "name": "Français"
+        }
+      },
+      "department": {
+        "isoCode": "FR-29",
+        "region": {
+          "isoCode": "FR-BRE",
+          "country": {
+            "hasStates": false,
+            "isoCode": "FR",
+            "phoneCode": "+33",
+            "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+            "name": "France",
+            "active": true,
+            "defaultLanguage": {
+              "code": "en",
+              "default": false,
+              "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+              "active": true,
+              "name": "English"
+            }
+          },
+          "id": "1115f7ca-48fb-11ea-8c09-0242ac120009",
+          "name": "Bretagne",
+          "active": true,
+          "defaultLanguage": {
+            "code": "fr",
+            "default": true,
+            "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+            "active": true,
+            "name": "Français"
+          }
+        },
+        "id": "1117508e-48fb-11ea-a5f2-0242ac120009",
+        "name": "Finistère",
+        "active": true,
+        "defaultLanguage": {
+          "code": "fr",
+          "default": true,
+          "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+          "active": true,
+          "name": "Français"
+        }
+      },
+      "type": "land",
+      "code": "sed",
+      "feedsUpdatedAt": "2020-02-06T16:25:07+00:00",
+      "countryMapPosition": {
+        "xAxis": 57.94,
+        "yAxis": 0.71,
+        "id": "10f23a88-48fb-11ea-9990-0242ac120009"
+      },
+      "regionMapPosition": {
+        "xAxis": 57.94,
+        "yAxis": 0.71,
+        "id": "10f23a88-48fb-11ea-9990-0242ac120009"
+      },
+      "departmentMapPosition": {
+        "xAxis": 57.94,
+        "yAxis": 0.71,
+        "id": "10f23a88-48fb-11ea-9990-0242ac120009"
+      },
+      "groupType": "city",
+      "id": "10f9fc96-48fb-11ea-b54f-0242ac120009"
+    },
+    {
+      "title": "maiores",
+      "latitude": 50,
+      "longitude": -3,
+      "country": {
+        "hasStates": false,
+        "isoCode": "FR",
+        "phoneCode": "+33",
+        "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+        "name": "France",
+        "active": true,
+        "defaultLanguage": {
+          "code": "en",
+          "default": false,
+          "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+          "active": true,
+          "name": "English"
+        }
+      },
+      "region": {
+        "isoCode": "FR-BRE",
+        "country": {
+          "hasStates": false,
+          "isoCode": "FR",
+          "phoneCode": "+33",
+          "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+          "name": "France",
+          "active": true,
+          "defaultLanguage": {
+            "code": "en",
+            "default": false,
+            "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+            "active": true,
+            "name": "English"
+          }
+        },
+        "id": "1115f7ca-48fb-11ea-8c09-0242ac120009",
+        "name": "Bretagne",
+        "active": true,
+        "defaultLanguage": {
+          "code": "fr",
+          "default": true,
+          "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+          "active": true,
+          "name": "Français"
+        }
+      },
+      "department": {
+        "isoCode": "FR-29",
+        "region": {
+          "isoCode": "FR-BRE",
+          "country": {
+            "hasStates": false,
+            "isoCode": "FR",
+            "phoneCode": "+33",
+            "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+            "name": "France",
+            "active": true,
+            "defaultLanguage": {
+              "code": "en",
+              "default": false,
+              "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+              "active": true,
+              "name": "English"
+            }
+          },
+          "id": "1115f7ca-48fb-11ea-8c09-0242ac120009",
+          "name": "Bretagne",
+          "active": true,
+          "defaultLanguage": {
+            "code": "fr",
+            "default": true,
+            "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+            "active": true,
+            "name": "Français"
+          }
+        },
+        "id": "1117508e-48fb-11ea-a5f2-0242ac120009",
+        "name": "Finistère",
+        "active": true,
+        "defaultLanguage": {
+          "code": "fr",
+          "default": true,
+          "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+          "active": true,
+          "name": "Français"
+        }
+      },
+      "type": "land",
+      "code": "earum",
+      "feedsUpdatedAt": "2020-02-06T16:25:02+00:00",
+      "countryMapPosition": {
+        "xAxis": 72.03,
+        "yAxis": 93.26,
+        "id": "10f23bf0-48fb-11ea-97b1-0242ac120009"
+      },
+      "regionMapPosition": {
+        "xAxis": 99.44,
+        "yAxis": 86.86,
+        "id": "10f23d3a-48fb-11ea-b6ee-0242ac120009"
+      },
+      "departmentMapPosition": {
+        "xAxis": 70.29,
+        "yAxis": 99.9,
+        "id": "10f23e8e-48fb-11ea-901e-0242ac120009"
+      },
+      "groupType": "",
+      "id": "10f9fe6c-48fb-11ea-8f63-0242ac120009"
+    },
+    {
+      "title": "consequuntur",
+      "latitude": 39,
+      "longitude": 1,
+      "country": {
+        "hasStates": false,
+        "isoCode": "FR",
+        "phoneCode": "+33",
+        "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+        "name": "France",
+        "active": true,
+        "defaultLanguage": {
+          "code": "en",
+          "default": false,
+          "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+          "active": true,
+          "name": "English"
+        }
+      },
+      "region": {
+        "isoCode": "FR-BRE",
+        "country": {
+          "hasStates": false,
+          "isoCode": "FR",
+          "phoneCode": "+33",
+          "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+          "name": "France",
+          "active": true,
+          "defaultLanguage": {
+            "code": "en",
+            "default": false,
+            "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+            "active": true,
+            "name": "English"
+          }
+        },
+        "id": "1115f7ca-48fb-11ea-8c09-0242ac120009",
+        "name": "Bretagne",
+        "active": true,
+        "defaultLanguage": {
+          "code": "fr",
+          "default": true,
+          "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+          "active": true,
+          "name": "Français"
+        }
+      },
+      "department": {
+        "isoCode": "FR-29",
+        "region": {
+          "isoCode": "FR-BRE",
+          "country": {
+            "hasStates": false,
+            "isoCode": "FR",
+            "phoneCode": "+33",
+            "id": "10fc7278-48fb-11ea-a984-0242ac120009",
+            "name": "France",
+            "active": true,
+            "defaultLanguage": {
+              "code": "en",
+              "default": false,
+              "id": "11160c9c-48fb-11ea-a8ad-0242ac120009",
+              "active": true,
+              "name": "English"
+            }
+          },
+          "id": "1115f7ca-48fb-11ea-8c09-0242ac120009",
+          "name": "Bretagne",
+          "active": true,
+          "defaultLanguage": {
+            "code": "fr",
+            "default": true,
+            "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+            "active": true,
+            "name": "Français"
+          }
+        },
+        "id": "1117508e-48fb-11ea-a5f2-0242ac120009",
+        "name": "Finistère",
+        "active": true,
+        "defaultLanguage": {
+          "code": "fr",
+          "default": true,
+          "id": "11160b34-48fb-11ea-beb2-0242ac120009",
+          "active": true,
+          "name": "Français"
+        }
+      },
+      "type": "sea",
+      "code": "similique",
+      "feedsUpdatedAt": "2020-02-06T16:24:57+00:00",
+      "countryMapPosition": {
+        "xAxis": 70.29,
+        "yAxis": 99.9,
+        "id": "10f23e8e-48fb-11ea-901e-0242ac120009"
+      },
+      "regionMapPosition": {
+        "xAxis": 18.63,
+        "yAxis": 61.66,
+        "id": "10f2426c-48fb-11ea-ac95-0242ac120009"
+      },
+      "departmentMapPosition": {
+        "xAxis": 46.67,
+        "yAxis": 84.63,
+        "id": "10f2465e-48fb-11ea-9ad5-0242ac120009"
+      },
+      "groupType": "",
+      "id": "10fa015a-48fb-11ea-b101-0242ac120009"
+    }
+  ]

@@ -6,16 +6,15 @@ namespace Sportrizer\Sportysky;
 
 use DateTimeInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Sportrizer\Sportysky\Exception\BadRequestException;
+use Sportrizer\Sportysky\Utils\Geo\Box;
+use Sportrizer\Sportysky\Utils\Geo\Point;
 
 final class ApiClient
 {
     private const SPORTYSKY_API_URL = 'https://api.sportysky.com';
-    private const BAD_REQUEST_MESSAGE = 'Bad request';
 
     /**
      * Sportysky Guzzle client
@@ -54,7 +53,8 @@ final class ApiClient
         string $departmentIsoCode = null,
         string $regionIsoCode = null,
         string $countryIsoCode = null,
-        string $spotUuid = null
+        string $spotUuid = null,
+        string $spotIsoCode = null
     ): Response {
         $roundMinDate = $minDate->setTime((int) $minDate->format('H'), 0, 0);
         $roundMaxDate = $maxDate ? $maxDate->setTime((int) $maxDate->format('H'), 0, 0) : null;
@@ -67,7 +67,8 @@ final class ApiClient
                 'departmentIsoCode' => $departmentIsoCode,
                 'regionIsoCode' => $regionIsoCode,
                 'countryIsoCode' => $countryIsoCode,
-                'spotUuid' => $spotUuid
+                'spotUuid' => $spotUuid,
+                'spotIsoCode' => $spotIsoCode
             ],
             'stream' => true
         ]);
@@ -135,5 +136,43 @@ final class ApiClient
         DateTimeInterface $maxDate
     ): Response {
         return $this->getForecastResponse($minDate, $maxDate, null, null, null, $spotUuid);
+    }
+    
+    /**
+     * Returns the API response for a single spot
+     *
+     * @param string $spotUuid
+     * @param string $minDate
+     * @param string $maxDate
+     * @return Response
+     */
+    public function getSpotForecastByIsoCodeResponse(
+        string $isoCode,
+        DateTimeInterface $minDate,
+        DateTimeInterface $maxDate
+    ): Response {
+        return $this->getForecastResponse($minDate, $maxDate, null, null, null, null, $isoCode);
+    }
+
+    /**
+     * Returns the API response of the spots list
+     *
+     * @param Point $nearPoint find the nearest spot
+     * @param Box $insideBox find all spots inside a box
+     * @return Response
+     */
+    public function getSpotsResponse(Point $nearPoint = null, Box $insideBox = null): Response
+    {
+        return $this->http->get('/forecast/customers/me/theme/spots', [
+            'query' => [
+                'near_lat' => $nearPoint ?? $nearPoint->lat,
+                'near_lng' => $nearPoint ?? $nearPoint->lng,
+                'inside_p1_lat' => $insideBox ?? $insideBox->point1->lat,
+                'inside_p1_lng' => $insideBox ?? $insideBox->point1->lng,
+                'inside_p2_lat' => $insideBox ?? $insideBox->point2->lat,
+                'inside_p2_lng' => $insideBox ?? $insideBox->point2->lng,
+            ],
+            'stream' => true
+        ]);
     }
 }

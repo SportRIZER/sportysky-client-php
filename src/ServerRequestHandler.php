@@ -13,6 +13,8 @@ final class ServerRequestHandler
     public const DEPARTMENT_ISO_PARAM = 'departmentIsoCode';
     public const REGION_ISO_PARAM = 'regionIsoCode';
     public const COUNTRY_ISO_PARAM = 'countryIsoCode';
+    public const SPOT_UUID_PARAM = 'spotUuid';
+    public const SPOT_ISO_CODE_PARAM = 'spotIsoCode';
 
     /**
      * SportySKY API client
@@ -38,7 +40,9 @@ final class ServerRequestHandler
                 $maxDate,
                 $queryParams[self::DEPARTMENT_ISO_PARAM] ?? null,
                 $queryParams[self::REGION_ISO_PARAM] ?? null,
-                $queryParams[self::COUNTRY_ISO_PARAM] ?? null
+                $queryParams[self::COUNTRY_ISO_PARAM] ?? null,
+                $queryParams[self::SPOT_UUID_PARAM] ?? null,
+                $queryParams[self::SPOT_ISO_CODE_PARAM] ?? null
             );
         }
 

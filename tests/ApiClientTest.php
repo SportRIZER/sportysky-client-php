@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Handler\MockHandler;
 use Sportrizer\Sportysky\ApiClient;
 use GuzzleHttp\Exception\ClientException;
+use Sportrizer\Sportysky\Utils\Geo\Box;
+use Sportrizer\Sportysky\Utils\Geo\Point;
 
 class ApiClientTest extends TestCase
 {
@@ -68,6 +70,35 @@ class ApiClientTest extends TestCase
             '1234-1234-1234-1234',
             new DateTime(),
             new DateTime()
+        );
+
+        $this->assertEquals($body, $result->getBody()->getContents());
+    }
+
+    public function testShouldReturnValidSpotByIsoCodeResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'forecast-data.json');
+
+        $apiClient = $this->getApiClient(200, $body);
+
+        $result = $apiClient->getSpotForecastByIsoCodeResponse(
+            'iso-code',
+            new DateTime(),
+            new DateTime()
+        );
+
+        $this->assertEquals($body, $result->getBody()->getContents());
+    }
+
+    public function testShouldReturnValidSpotsResponse()
+    {
+        $body = file_get_contents(self::MOCK_DIRECTORY . 'spots.json');
+
+        $apiClient = $this->getApiClient(200, $body);
+
+        $result = $apiClient->getSpotsResponse(
+            new Point(12.2, 13.3),
+            new Box(new Point(14.4, 15.5), new Point(16.6, 17.7))
         );
 
         $this->assertEquals($body, $result->getBody()->getContents());
