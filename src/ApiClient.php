@@ -168,7 +168,7 @@ final class ApiClient
         return $this->http->get('/forecast/customers/me/theme/spots', [
             'query' => [
                 'near_lat' => $nearPoint->lat ?? null,
-                'near_lat' => $nearPoint->lng ?? null,
+                'near_lng' => $nearPoint->lng ?? null,
                 'inside_p1_lat' => $insideBox->point1->lat ?? null,
                 'inside_p1_lng' => $insideBox->point1->lng ?? null,
                 'inside_p2_lat' => $insideBox->point2->lat ?? null,
