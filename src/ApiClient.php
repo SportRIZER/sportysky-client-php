@@ -137,7 +137,7 @@ final class ApiClient
     ): Response {
         return $this->getForecastResponse($minDate, $maxDate, null, null, null, $spotUuid);
     }
-    
+
     /**
      * Returns the API response for a single spot (by code and country)
      *
@@ -167,12 +167,12 @@ final class ApiClient
     {
         return $this->http->get('/forecast/customers/me/theme/spots', [
             'query' => [
-                'near_lat' => $nearPoint ?? $nearPoint->lat,
-                'near_lng' => $nearPoint ?? $nearPoint->lng,
-                'inside_p1_lat' => $insideBox ?? $insideBox->point1->lat,
-                'inside_p1_lng' => $insideBox ?? $insideBox->point1->lng,
-                'inside_p2_lat' => $insideBox ?? $insideBox->point2->lat,
-                'inside_p2_lng' => $insideBox ?? $insideBox->point2->lng,
+                'near_lat' => $nearPoint->lat ?? null,
+                'near_lat' => $nearPoint->lng ?? null,
+                'inside_p1_lat' => $insideBox->point1->lat ?? null,
+                'inside_p1_lng' => $insideBox->point1->lng ?? null,
+                'inside_p2_lat' => $insideBox->point2->lat ?? null,
+                'inside_p2_lng' => $insideBox->point2->lng ?? null,
                 'page' => $page
             ],
             'stream' => true
